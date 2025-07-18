@@ -2,27 +2,9 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, ExternalLink, Info, RefreshCw } from "lucide-react"
-import { useState, useEffect } from "react"
+import { MapPin, ExternalLink, Info } from "lucide-react"
 
 export function ApprenticeshipMap() {
-  const [iframeError, setIframeError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-
-  const handleIframeError = () => {
-    setIframeError(true)
-    setIsLoading(false)
-  }
-
-  const handleIframeLoad = () => {
-    setIsLoading(false)
-  }
-
-  const retryLoad = () => {
-    setIframeError(false)
-    setIsLoading(true)
-  }
-
   return (
     <div className="space-y-6">
       <Card>
@@ -58,7 +40,7 @@ export function ApprenticeshipMap() {
               </div>
             </div>
 
-            {/* Map Embed */}
+            {/* Interactive Map Interface */}
             <div className="rounded-lg border bg-white overflow-hidden">
               <div className="bg-gray-50 px-4 py-2 border-b">
                 <div className="flex items-center justify-between">
@@ -74,58 +56,133 @@ export function ApprenticeshipMap() {
                   </a>
                 </div>
               </div>
-              <div className="relative w-full" style={{ height: "600px" }}>
-                {isLoading && (
-                  <div className="absolute inset-0 bg-gray-50 flex items-center justify-center">
-                    <div className="text-center space-y-3">
-                      <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto"></div>
-                      <p className="text-gray-600">Loading CEDEFOP map...</p>
-                    </div>
-                  </div>
-                )}
-                
-                {iframeError ? (
-                  <div className="absolute inset-0 bg-gray-50 flex items-center justify-center">
-                    <div className="text-center space-y-4 max-w-md mx-auto p-6">
-                      <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center">
-                        <MapPin className="w-8 h-8 text-red-600" />
+              <div className="p-8">
+                <div className="max-w-4xl mx-auto">
+                  {/* Map Preview */}
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg p-8 mb-8">
+                    <div className="text-center space-y-6">
+                      <div className="w-20 h-20 mx-auto bg-blue-600 rounded-full flex items-center justify-center">
+                        <MapPin className="w-10 h-10 text-white" />
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900">Map Loading Failed</h3>
-                      <p className="text-gray-600">
-                        The CEDEFOP map cannot be embedded due to security restrictions. Please use the external link below.
-                      </p>
-                      <div className="space-y-3">
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-2">European Apprenticeship Schemes</h3>
+                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                          Explore comprehensive apprenticeship schemes across all EU member states, EEA countries, and candidate countries through CEDEFOP's interactive database.
+                        </p>
+                      </div>
+                      <div className="flex justify-center">
                         <a 
                           href="https://www.cedefop.europa.eu/en/tools/apprenticeship-schemes/scheme-fiches-map" 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                          className="inline-flex items-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                         >
-                          <ExternalLink className="w-4 h-4" />
-                          Open CEDEFOP Map
+                          <ExternalLink className="w-5 h-5" />
+                          Launch Interactive Map
                         </a>
-                        <button
-                          onClick={retryLoad}
-                          className="block mx-auto flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
-                        >
-                          <RefreshCw className="w-4 h-4" />
-                          Try Again
-                        </button>
                       </div>
                     </div>
                   </div>
-                ) : (
-                  <iframe
-                    src="https://www.cedefop.europa.eu/en/tools/apprenticeship-schemes/scheme-fiches-map"
-                    className="w-full h-full border-0"
-                    title="CEDEFOP Apprenticeship Schemes Map"
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-                    allow="fullscreen"
-                    onError={handleIframeError}
-                    onLoad={handleIframeLoad}
-                  />
-                )}
+
+                  {/* Country Coverage Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div className="bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                          <span className="text-green-600 font-bold text-sm">27</span>
+                        </div>
+                        <h4 className="font-semibold text-gray-900">EU Member States</h4>
+                      </div>
+                      <p className="text-sm text-gray-600">Complete coverage of all European Union countries with detailed apprenticeship schemes.</p>
+                    </div>
+                    
+                    <div className="bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                          <span className="text-blue-600 font-bold text-sm">3</span>
+                        </div>
+                        <h4 className="font-semibold text-gray-900">EEA Countries</h4>
+                      </div>
+                      <p className="text-sm text-gray-600">Iceland, Norway, and Switzerland included in the comprehensive database.</p>
+                    </div>
+                    
+                    <div className="bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                          <span className="text-purple-600 font-bold text-sm">∞</span>
+                        </div>
+                        <h4 className="font-semibold text-gray-900">Scheme Fiches</h4>
+                      </div>
+                      <p className="text-sm text-gray-600">Detailed documentation for each apprenticeship scheme with implementation details.</p>
+                    </div>
+                  </div>
+
+                  {/* Quick Access Links */}
+                  <div className="bg-gray-50 rounded-lg p-6">
+                    <h4 className="font-semibold text-gray-900 mb-4">Quick Access to CEDEFOP Resources</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <a 
+                        href="https://www.cedefop.europa.eu/en/tools/apprenticeship-schemes" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-4 bg-white rounded-lg border hover:border-blue-300 hover:shadow-sm transition-all"
+                      >
+                        <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <MapPin className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-900">Apprenticeship Schemes</div>
+                          <div className="text-sm text-gray-600">Main database portal</div>
+                        </div>
+                      </a>
+                      
+                      <a 
+                        href="https://www.cedefop.europa.eu/en/tools/apprenticeship-schemes/country-fiches" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-4 bg-white rounded-lg border hover:border-blue-300 hover:shadow-sm transition-all"
+                      >
+                        <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                          <span className="text-green-600 font-bold">CF</span>
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-900">Country Fiches</div>
+                          <div className="text-sm text-gray-600">Country-specific information</div>
+                        </div>
+                      </a>
+                      
+                      <a 
+                        href="https://www.cedefop.europa.eu/en/tools/apprenticeship-schemes/comparison-tables" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-4 bg-white rounded-lg border hover:border-blue-300 hover:shadow-sm transition-all"
+                      >
+                        <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                          <span className="text-purple-600 font-bold">CT</span>
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-900">Comparison Tables</div>
+                          <div className="text-sm text-gray-600">Cross-country analysis</div>
+                        </div>
+                      </a>
+                      
+                      <a 
+                        href="https://www.cedefop.europa.eu/en/tools/apprenticeship-schemes/advanced-search" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 p-4 bg-white rounded-lg border hover:border-blue-300 hover:shadow-sm transition-all"
+                      >
+                        <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                          <span className="text-orange-600 font-bold">AS</span>
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-900">Advanced Search</div>
+                          <div className="text-sm text-gray-600">Filter and find schemes</div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
