@@ -1,7 +1,7 @@
 "use client"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { CalendarDays, Euro, Users, Target, BookOpen, Building2, BarChart3, Briefcase, MapPin } from "lucide-react"
+import { CalendarDays, Euro, Users, Target, BookOpen, Building2, BarChart3, Briefcase, MapPin, BarChart } from "lucide-react"
 import { CallOverview } from "@/components/call-overview"
 import { ConsortiumTable } from "@/components/consortium-table"
 import { ResourcesTable } from "@/components/resources-table"
@@ -10,6 +10,7 @@ import { BudgetTracker } from "@/components/budget-tracker"
 import { PillarsOverview } from "@/components/pillars-overview"
 import { OnTheJobTrainingTable } from "@/components/on-the-job-training-table"
 import { ApprenticeshipMap } from "@/components/apprenticeship-map"
+import { ProposalMatrices } from "@/components/proposal-matrices"
 
 export default function ProposalOrganizer() {
   return (
@@ -45,7 +46,7 @@ export default function ProposalOrganizer() {
 
         {/* Main Content */}
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8 lg:w-fit lg:grid-cols-8">
+          <TabsList className="grid w-full grid-cols-9 lg:w-fit lg:grid-cols-9">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <Target className="w-4 h-4" />
               Overview
@@ -69,6 +70,10 @@ export default function ProposalOrganizer() {
             <TabsTrigger value="apprenticeship" className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
               Apprenticeship
+            </TabsTrigger>
+            <TabsTrigger value="matrices" className="flex items-center gap-2">
+              <BarChart className="w-4 h-4" />
+              Matrices
             </TabsTrigger>
             <TabsTrigger value="timeline" className="flex items-center gap-2">
               <CalendarDays className="w-4 h-4" />
@@ -102,6 +107,10 @@ export default function ProposalOrganizer() {
 
           <TabsContent value="apprenticeship">
             <ApprenticeshipMap />
+          </TabsContent>
+
+          <TabsContent value="matrices">
+            <ProposalMatrices />
           </TabsContent>
 
           <TabsContent value="timeline">
